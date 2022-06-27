@@ -47,7 +47,10 @@ body {
 }
 .numbers {
     width: 33.33%;
-    
+    height: 25%;
+}
+.zero-width {
+    width: 66.66%
 }
 #subtraction {
     grid-area: 3 / 4 / 4 / 5;
