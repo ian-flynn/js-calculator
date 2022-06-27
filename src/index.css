@@ -7,7 +7,6 @@ body {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(6, 1fr);
-
     margin: auto;
     width: 500px;
     height: 800px;
@@ -20,21 +19,22 @@ body {
     width: 100%;
     height: 100%;
 }
-#return-screen {
+#display {
     grid-area: 1 / 1 / 2 / 5;
     background-color: antiquewhite;
+    text-align: right;
 }
-#AC {
+#clear {
     grid-area: 2 / 1 / 3 / 3;
     background-color: aqua;
 }
-#division {
+#divide {
     grid-area: 2 / 3 / 3 / 4;
     background-color: blue;
     color: white;
     text-align: center;
 }
-#multiplication {
+#multiply {
     grid-area: 2 / 4 / 3 / 5;
     background-color: lightblue;
 }
@@ -52,11 +52,11 @@ body {
 .zero-width {
     width: 66.66%
 }
-#subtraction {
+#subtract {
     grid-area: 3 / 4 / 4 / 5;
     background-color: pink;
 }
-#addition {
+#add {
     grid-area: 4 / 4 / 5/ 5;
     background-color: aquamarine;
 
@@ -65,7 +65,4 @@ body {
     grid-area: 5/ 4 / 7 / 5;
     background-color: green;
     color: aliceblue;
-}
-calc-button {
- color: aquamarine;
 }
