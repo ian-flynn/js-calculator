@@ -2,24 +2,35 @@ import { useState } from "react";
 
 function Calculator(){
     const [displayValue, setDisplayValue] = useState(0);
-    
+    const [formula, setFormula] = useState();
     
     const handleReset = () => {
         setDisplayValue(0);
+        setFormula("");
     }
     const handleNumber = (e) => {
-        if(displayValue !== 0){
-            setDisplayValue(displayValue + e.target.value);
+        //if it's not a number
+        if(isNaN(e.target.value)){
+            setFormula(formula + displayValue + e.target.value);
+            setDisplayValue(0)
+           
+        } else {
+            if(displayValue == 0 ){
+                setDisplayValue(e.target.value);
+            } else if (displayValue !== 0) {
+                setDisplayValue(displayValue + e.target.value);
+            }
         }
+        
     }
     return (
         <div id="calculator-box">
-            <div id="display">{ displayValue }</div>
+            <div id="display">{ formula }<br />{ displayValue }</div>
             <button id="clear" className="calc-button" onClick={ handleReset }>AC</button>
             <button id="divide" className="calc-button">/</button>
             <button id="multiply" className="calc-button">X</button>
             <button id="subtract" className="calc-button">-</button>
-            <button id="add" className="calc-button">+</button>
+            <button id="add" value="+" onClick={ handleNumber } className="calc-button">+</button>
             <button id="equals" className="calc-button">=</button>
             <div className="numbers-box">
                 <button id="seven" value="7" onClick={ handleNumber } className="numbers calc-button">7</button>
