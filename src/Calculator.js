@@ -6,14 +6,13 @@ function Calculator(){
     
     const handleReset = () => {
         setDisplayValue(0);
-        setFormula("");
+        setFormula(0);
     }
     const handleNumber = (e) => {
         //if it's not a number
         if(isNaN(e.target.value)){
             setFormula(formula + displayValue + e.target.value);
             setDisplayValue(0)
-           
         } else {
             if(displayValue == 0 ){
                 setDisplayValue(e.target.value);
