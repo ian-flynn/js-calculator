@@ -25,7 +25,7 @@ function Calculator(){
     }
     return (
         <div id="calculator-box">
-            <div id="screen">
+            <div id="screen1">
                 <div id="formula">{ formula }</div>
                 <div id="display">{ displayValue }</div>
             </div>
