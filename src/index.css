@@ -23,6 +23,7 @@ body {
     grid-area: 1 / 1 / 2 / 5;
     background-color: antiquewhite;
     text-align: right;
+    border: 2px black solid;
 }
 #clear {
     grid-area: 2 / 1 / 3 / 3;
