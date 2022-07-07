@@ -8,15 +8,19 @@ class Calculator1 extends React.Component {
         super();
         this.state = {
             question: '',
-            answer: ''
+            answer: 'hello'
         }
         this.handleClick = this.handleClick.bind(this);
     }
     handleClick(e){
         const value = e.target.value;
+        console.log(value)
+        console.log(this.state.answer)
         switch (value) {
             case '=': {
-
+                console.log(Math.evalu)
+                this.setState({ answer: 'dy'})
+                break;
             }
             case 'Clear': {
                 this.setState({ question: '', answer: ''});
@@ -34,7 +38,7 @@ class Calculator1 extends React.Component {
             <div className="frame">
                 <CalcTitle value="Ian's New Calculator"/>
                 <div className="mainCalc">
-                    <OutputScreen question={this.question} answer={this.answer}/>
+                    <OutputScreen question={this.state.question} answer={this.state.answer}/>
                     <div className="button-row">
                         <Button label={'Clear'} handleClick = {this.handleClick}/>
                         <Button label={'Delete'} handleClick = {this.handleClick}/>
