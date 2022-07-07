@@ -4,39 +4,64 @@ import OutputScreen from "./comps/OutputScreen";
 import Button from "./comps/Button";
 
 class Calculator1 extends React.Component {
+    constructor(){
+        super();
+        this.state = {
+            question: '',
+            answer: ''
+        }
+        this.handleClick = this.handleClick.bind(this);
+    }
+    handleClick(e){
+        const value = e.target.value;
+        switch (value) {
+            case '=': {
+
+            }
+            case 'Clear': {
+                this.setState({ question: '', answer: ''});
+                break;
+            }
+            default: {
+                this.setState({ question: this.state.question += value});
+                break;
+            }
+        }
+    }
+
     render() {
         return (
             <div className="frame">
                 <CalcTitle value="Ian's New Calculator"/>
                 <div className="mainCalc">
-                    <OutputScreen/>
+                    <OutputScreen question={this.question} answer={this.answer}/>
                     <div className="button-row">
-                        <Button label={'Clear'}/>
-                        <Button label={'Delete'}/>
-                        <Button label={'.'}/>
-                        <Button label={'/'}/>
+                        <Button label={'Clear'} handleClick = {this.handleClick}/>
+                        <Button label={'Delete'} handleClick = {this.handleClick}/>
+                        <Button label={'.'} handleClick = {this.handleClick}/>
+                        <Button label={'/'} handleClick = {this.handleClick}/>
                     </div>
                     <div className="button-row">
-                        <Button label={'7'}/>
-                        <Button label={'8'}/>
-                        <Button label={'9'}/>
-                        <Button label={'*'}/>
+                        <Button label={'7'} handleClick = {this.handleClick}/>
+                        <Button label={'8'} handleClick = {this.handleClick}/>
+                        <Button label={'9'} handleClick = {this.handleClick}/>
+                        <Button label={'*'} handleClick = {this.handleClick}/>
                     </div>
                     <div className="button-row">
-                        <Button label={'4'}/>
-                        <Button label={'5'}/>
-                        <Button label={'6'}/>
-                        <Button label={'-'}/>
+                        <Button label={'4'} handleClick = {this.handleClick}/>
+                        <Button label={'5'} handleClick = {this.handleClick}/>
+                        <Button label={'6'} handleClick = {this.handleClick}/>
+                        <Button label={'-'} handleClick = {this.handleClick}/>
                     </div>
                     <div className="button-row">
-                        <Button label={'1'}/>
-                        <Button label={'2'}/>
-                        <Button label={'3'}/>
-                        <Button label={'+'}/>
+                        <Button label={'1'} handleClick = {this.handleClick}/>
+                        <Button label={'2'} handleClick = {this.handleClick}/>
+                        <Button label={'3'} handleClick = {this.handleClick}/>
+                        <Button label={'+'} handleClick = {this.handleClick}/>
                     </div>
                     <div className="button-row">
-                        <Button label={'0'}/>
-                        <Button label={'='}/>
+                        <Button label={'0'} handleClick = {this.handleClick}/>
+                        <Button label={'='} handleClick = {this.handleClick}/>
                     </div>
                 </div>
             </div>

@@ -5,6 +5,7 @@ const Button = (props) => {
         <input 
         type="button"
         value={props.label}
+        onClick= { props.handleClick }
         />
     );
 }
