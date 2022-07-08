@@ -4,7 +4,7 @@ import OutputScreen from "./comps/OutputScreen";
 import Button from "./comps/Button";
 
 
-const isOperator = /[x/+-]/;
+const isOperator = /[*/+-]/;
 const endsWithOperator = /[x+-/]$/;
 const endsWithNegativeSign = /\d[x/+-]{1}-$/;
 
@@ -20,7 +20,7 @@ class Calculator extends React.Component {
    
     handleClick(e){
         const value = e.target.value;
-        switch (value) {
+        switch (true) {
             case '=': {
                 function evaluator(fn) {
                     return new Function('return ' + fn)();
@@ -34,21 +34,13 @@ class Calculator extends React.Component {
                 break;
             }
             case '+': {
-                this.setState({formula: this.state.formula += this.state.display})
+                console.log('sup lozer')
+                this.setState({formula: this.state.formula += this.state.display += value})
                 this.setState({display: value})
                 break;
             }
-            case '-': {
-                this.setState({formula: this.state.formula += this.state.display})
-                this.setState({display: value})
-                break;
-            }
-            case '/': {
-                this.setState({formula: this.state.formula += this.state.display})
-                this.setState({display: value})
-                break;
-            }
-            case '*': {
+            case isOperator.test(value): {
+                console.log('it did it')
                 this.setState({formula: this.state.formula += this.state.display})
                 this.setState({display: value})
                 break;

@@ -21,9 +21,14 @@ body {
 }
 #screen {
     grid-area: 1 / 1 / 2 / 5;
+    border: 2px black solid;
+}
+.screenrow {
+    box-sizing: border-box;
+    width: 100%;
+    font-size: large;
     background-color: antiquewhite;
     text-align: right;
-    border: 2px black solid;
 }
 #clear {
     grid-area: 2 / 1 / 3 / 3;
