@@ -3,9 +3,9 @@ import OutputScreenRow from "./OutputScreenRow";
 
 const OutputScreen = (props) => {
     return (
-        <div className="screen">
-            <OutputScreenRow value = { props.question }/>
-            <OutputScreenRow value = { props.answer }/>
+        <div id="screen" >
+            <OutputScreenRow value = { props.formula }/>
+            <OutputScreenRow value = { props.display }/>
         </div>
     );
 }

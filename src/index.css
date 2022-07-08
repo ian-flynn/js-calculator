@@ -19,7 +19,7 @@ body {
     width: 100%;
     height: 100%;
 }
-#screen1 {
+#screen {
     grid-area: 1 / 1 / 2 / 5;
     background-color: antiquewhite;
     text-align: right;

@@ -7,78 +7,61 @@ class Calculator extends React.Component {
     constructor(){
         super();
         this.state ={
-            display: '',
-            formula: ''
+            //answer
+            display: '0',
+            //question
+            formula: 'formulaaaa'
         }
+        this.handleClick = this.handleClick.bind(this);
     }
     handleClick(e){
         const value = e.target.value;
         switch (value) {
             case '=': {
-                function evil(fn) {
+                function evaluator(fn) {
                     return new Function('return ' + fn)();
                   }
-                this.setState({answer: evil(this.state.question)})
+                this.setState({display: evaluator(this.state.formula)})
                 break;
             }
             case 'Clear': {
-                this.setState({ question: '', answer: ''});
+                this.setState({ formula: '', display : ''});
                 break;
             }
             default: {
-                this.setState({ question: this.state.question += value});
+                this.setState({ formula: this.state.formula += value});
                 break;
             }
         }
     }
     render(){
         return (
-            <div id="calculator-box">
+            <div>
                 <CalcTitle value="Ian's New Calculator"/>
-                <div id="screen1">
-                    <div id="formula">{ formula }</div>
-                    <div id="display">{ displayValue }</div>
-                </div>
-                <button id="clear" className="calc-button" onClick={ handleReset }>AC</button>
-                <button id="divide" className="calc-button">/</button>
-                <button id="multiply" className="calc-button">X</button>
-                <button id="subtract" className="calc-button">-</button>
-                <button id="add" value="+" onClick={ handleNumber } className="calc-button">+</button>
-                <button id="equals" className="calc-button">=</button>
-                <div className="numbers-box">
-                    <button id="seven" value="7" onClick={ handleNumber } className="numbers calc-button">7</button>
-                    <button id="eight" value="8" onClick={ handleNumber } className="numbers calc-button">8</button>
-                    <button id="nine" value="9" onClick={ handleNumber } className="numbers calc-button">9</button>
-                    <button id="four" value="4" onClick={ handleNumber } className="numbers calc-button">4</button>
-                    <button id="five" value="5" onClick={ handleNumber } className="numbers calc-button">5</button>
-                    <button id="six" value="6" onClick={ handleNumber } className="numbers calc-button">6</button>
-                    <button id="one" value="1" onClick={ handleNumber } className="numbers calc-button">1</button>
-                    <button id="two" value="2" onClick={ handleNumber } className="numbers calc-button">2</button>
-                    <button id="three" value="3" onClick={ handleNumber } className="numbers calc-button">3</button>
-                    <button id="zero" value="0"  onClick={ handleNumber } className="numbers calc-button zero-width">0</button>
-                    <button id="decimal" value="."  onClick={ handleNumber } className="numbers calc-button">.</button>
+                <div id="calculator-box">
+                    <OutputScreen formula={this.state.formula} display={this.state.display}/>
+                    <Button id="clear" className="calc-button" />
+                    <button id="divide" className="calc-button">/</button>
+                    <button id="multiply" className="calc-button">X</button>
+                    <button id="subtract" className="calc-button">-</button>
+                    <button id="add" value="+"  className="calc-button">+</button>
+                    <button id="equals" className="calc-button">=</button>
+                    <div className="numbers-box">
+                        <button id="seven" value="7"  className="numbers calc-button">7</button>
+                        <button id="eight" value="8"  className="numbers calc-button">8</button>
+                        <button id="nine" value="9"  className="numbers calc-button">9</button>
+                        <button id="four" value="4"  className="numbers calc-button">4</button>
+                        <button id="five" value="5" className="numbers calc-button">5</button>
+                        <button id="six" value="6"  className="numbers calc-button">6</button>
+                        <button id="one" value="1"  className="numbers calc-button">1</button>
+                        <button id="two" value="2"  className="numbers calc-button">2</button>
+                        <button id="three" value="3"  className="numbers calc-button">3</button>
+                        <button id="zero" value="0"   className="numbers calc-button zero-width">0</button>
+                        <button id="decimal" value="."   className="numbers calc-button">.</button>
+                    </div>
                 </div>
             </div>
         )
-    }
-    const handleReset = () => {
-        setDisplayValue(0);
-        setFormula("");
-    }
-    const handleNumber = (e) => {
-        //if it's not a number
-        if(isNaN(e.target.value)){
-            setFormula(formula + displayValue + e.target.value);
-            setDisplayValue(0)
-        //if it is a number
-        } else {
-            if(displayValue == 0 ){
-                setDisplayValue(e.target.value);
-            } else if (displayValue !== 0) {
-                setDisplayValue(displayValue + e.target.value);
-            }
-        }
-        
     }
     
 }
