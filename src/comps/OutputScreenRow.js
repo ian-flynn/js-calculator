@@ -3,8 +3,8 @@ import React from "react";
 
 const OutputScreenRow = (props) => {
     return (
-        <div className="screenrow">
-            <input type="text" readOnly value={props.value}/>
+        <div className="screenrow" id={props.id}>
+            <input  type="text" readOnly value={props.value}/>
         </div>
     );
 }

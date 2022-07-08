@@ -4,8 +4,8 @@ import OutputScreenRow from "./OutputScreenRow";
 const OutputScreen = (props) => {
     return (
         <div id="screen" >
-            <OutputScreenRow value = { props.formula }/>
-            <OutputScreenRow value = { props.display }/>
+            <OutputScreenRow id={'formula'} value={ props.formula }/>
+            <OutputScreenRow id={'display'} value={ props.display }/>
         </div>
     );
 }
