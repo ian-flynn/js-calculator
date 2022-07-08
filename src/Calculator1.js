@@ -14,12 +14,12 @@ class Calculator1 extends React.Component {
     }
     handleClick(e){
         const value = e.target.value;
-        console.log(value)
-        console.log(this.state.answer)
         switch (value) {
             case '=': {
-                console.log(Math.evalu)
-                this.setState({ answer: 'dy'})
+                function evil(fn) {
+                    return new Function('return ' + fn)();
+                  }
+                this.setState({answer: evil(this.state.question)})
                 break;
             }
             case 'Clear': {
