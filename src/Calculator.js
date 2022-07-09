@@ -12,40 +12,50 @@ class Calculator extends React.Component {
     constructor(){
         super();
         this.state ={
+            formula: '',
             display: 0,
-            formula: ''
+            evaluated: false,
+            previousInput: ''
         }
         this.handleClick = this.handleClick.bind(this);
     }
    
     handleClick(e){
         const value = e.target.value;
-        switch (true) {
+        switch (value) {
             case '=': {
                 function evaluator(fn) {
                     return new Function('return ' + fn)();
                 }
                 this.setState({formula: this.state.formula += this.state.display})
                 this.setState({display: evaluator(this.state.formula)})
+                this.setState({evaluated: true})
+                console.log(this.state.evaluated)
                 break;
             }
-            case 'AC': {
-                this.setState({ formula: '', display : 0});
+            case 'clear': {
+                this.setState({ formula: '', display : 0, evaluated: false, previousInput: ''});
                 break;
             }
-            case '+': {
-                console.log('sup lozer')
-                this.setState({formula: this.state.formula += this.state.display += value})
-                this.setState({display: value})
-                break;
-            }
-            case isOperator.test(value): {
-                console.log('it did it')
-                this.setState({formula: this.state.formula += this.state.display})
-                this.setState({display: value})
-                break;
+            case '+':
+            case '-':
+            case '*':
+            case '/': {
+               // if(this.state.previousInput ==  '+'){
+                  //  this.setState({formula: this.state.formula.slice(0, -1) + value})
+                    //this.setState({previousInput: value})
+                   // break;
+               // } else {
+                    console.log('it did it')
+                    this.setState({formula: this.state.formula += this.state.display += value})
+                    this.setState({display: value})
+                    this.setState({previousInput: value})
+                    console.log(this.state.previousInput)
+                    break;
+              //  }
             }
             default: {
+                console.log('it did default')
                 if(this.state.display==0){
                     this.setState({display: value})
                     break;
@@ -64,7 +74,7 @@ class Calculator extends React.Component {
                 <CalcTitle value="Ian's New Calculator"/>
                 <div id="calculator-box">
                     <OutputScreen formula={this.state.formula} display={this.state.display}/>
-                    <Button id={'clear'} label={'AC'} handleClick = {this.handleClick} className={'calc-button'}/>
+                    <Button id={'clear'} label={'clear'} handleClick = {this.handleClick} className={'calc-button'}/>
                     <Button id={'divide'} label={'/'} handleClick = {this.handleClick} className={'calc-button'} />
                     <Button id={'multiply'} label={'*'} handleClick = {this.handleClick} className={'calc-button'}/>
                     <Button id={'subtract'} label={'-'} handleClick = {this.handleClick} className={'calc-button'}/>
