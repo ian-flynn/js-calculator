@@ -56,7 +56,7 @@ class Calculator extends React.Component {
             }
             default: {
                 console.log('it did default')
-                if(this.state.display==0){
+                if(this.state.display==0 || this.state.display == '+'){
                     this.setState({display: value})
                     break;
                 } else {
