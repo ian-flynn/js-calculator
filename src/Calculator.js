@@ -6,7 +6,9 @@ import Button from "./comps/Button";
 
 const isOperator = /[*/+-]/;
 const endsWithOperator = /[*+-/]$/;
-const endsWithNegativeSign = /\d[*/+-]{1}-$/;
+const endsOperatorThenNegative = /\d[*/+-]{1}-$/;
+                            
+
 
 class Calculator extends React.Component {
     constructor(){
@@ -16,28 +18,33 @@ class Calculator extends React.Component {
             display: 0,
             evaluated: false,
             previousInput: '',
-            decimal: false
+            decimal: false,
+            previousOperator: '',
+            currentOperator: ''
         }
         this.handleClick = this.handleClick.bind(this);
         this.handleOperator = this.handleOperator.bind(this);
         this.handleEqual = this.handleEqual.bind(this);
         this.handleDecimal = this.handleDecimal.bind(this);
+        this.handleClear = this.handleClear.bind(this);
+        this.handleNegative = this.handleNegative.bind(this);
     }
     handleOperator(e){
         const value = e.target.value;
-        //if previousinput is an equal sign, set formula as prevous results plus operand, set display to operand
-        if(this.state.previousInput == '='){
+    
+        //if an equation has been evaluated, set formula as prevous results plus operator, set display to operator
+        if(this.state.evaluated == true){
             this.setState({formula: this.state.display + value,
                            display: value,
                            previousInput: value});
         }
-        //if prevInp isnt an operand, the display isnt in initial state of zero, move all numbers in display up to end of formula, plus the operand
+        //if prevInp isnt an operator, the display isnt in initial state of zero, move all numbers in display up to end of formula, plus the operator
         else if (!isOperator.test(this.state.previousInput) && this.state.previousInput != ''){
             this.setState({formula: this.state.formula + this.state.display + value, 
                            display: value,
                            previousInput: value});
         }
-        //if previous input is an operand, then replace the end of formula with new input unless negative
+        //if previous input is an operator, then replace the end of formula with new input unless negative
         // and also replace it in the display
          else if (isOperator.test(this.state.previousInput)){
             //if current value is a negative sign, add the negative to the formula without removing previous input
@@ -45,23 +52,38 @@ class Calculator extends React.Component {
                 this.setState({formula: this.state.formula + value,
                                display: value,
                                previousInput: value})
+            } else if(endsOperatorThenNegative.test(this.state.formula)){
+                console.log('im in dawg');
+                this.setState({formula: this.state.formula.slice(0,-2) + value,
+                               display: value,
+                               previousInput: value});
             } else {
                 this.setState({formula: this.state.formula.slice(0, -1) + value, 
                     display: value,
                     previousInput: value});
+                    console.log('you failed big time');
             }
         }
+        //if it endswithoperatorthennegative sign is true, replace both the operator and the negative sign with the new sign
+        
+        
         //TODO: check this to make sure it's not messing up
-        this.setState({decimal: false});
+        this.setState({decimal: false,
+                       evaluated: false});
+    }
+    handleNegative(e){
+        const value = e.target.value;
+        //5*-+5 = 10
+        //5*-5 == -25
+        //make negative not an operator?
+        //only keep negative if it is the last operator in the sequence
     }
     handleDecimal(e){
         const value = e.target.value;
         //check if a decimal is already present in the display, if not, add
-        console.log(this.state.decimal);
         if(this.state.decimal == false){
             this.setState({display: this.state.display + value, previousInput: value, decimal: true})
         }
-        console.log(this.state.decimal);
     }
     handleEqual(e){
         const value = e.target.value;
@@ -69,7 +91,7 @@ class Calculator extends React.Component {
             return new Function('return ' + fn)();
         }
 
-        //if previous input is an operand, remove it from end of formula and evaluate
+        //if previous input is an operator, remove it from end of formula and evaluate
         if (isOperator.test(this.state.previousInput)){
             this.setState({display: evaluator(this.state.formula.slice(0, -1)),
                            formula: this.state.formula.slice(0,-1),
@@ -80,21 +102,27 @@ class Calculator extends React.Component {
         //maths the formula plus the final display numbers
          else {
             this.setState({display: evaluator(this.state.formula  += this.state.display), 
-                evaluated: true,
-                previousInput: value,
-                evaluated: true});
+                           evaluated: true,
+                           previousInput: value,});
          }
          this.setState({decimal: false})
             
     }
+    handleClear(e){
+        const value = e.target.value;
+        this.setState({ formula: '',
+                        display: 0,
+                        evaluated: false,
+                        previousInput: '',
+                        decimal: false});
+    }
 
     handleClick(e){
         const value = e.target.value;
-        if (value == 'clear') {
-            this.setState({ formula: '', display : 0, evaluated: false, previousInput: ''});
-        } else if(this.state.display==0){
-            this.setState({display: value, previousInput: value})
-        //if it's just an operand and nothing else, replace with number
+        
+        if(this.state.display==0 || this.state.evaluated == true){
+            this.setState({display: value, previousInput: value, formula: ''})
+        //if it's just an operator and nothing else, replace with number
         } else if(isOperator.test(this.state.display)){
             this.setState({display: value, previousInput: value})
         } else {
@@ -103,12 +131,12 @@ class Calculator extends React.Component {
     }
     render(){
         return (
-            //<Button label={'Delete'} handleClick = {this.handleClick}/>
+            //<Button label={'Delete'} handleNumber = {this.handleNumber}/>
             <div>
                 <CalcTitle value="Ian's New Calculator"/>
                 <div id="calculator-box">
                     <OutputScreen formula={this.state.formula} display={this.state.display}/>
-                    <Button id={'clear'} label={'clear'} handleClick = {this.handleClick} className={'calc-button'}/>
+                    <Button id={'clear'} label={'clear'} handleClick = {this.handleClear} className={'calc-button'}/>
                     <Button id={'divide'} label={'/'} handleClick = {this.handleOperator} className={'calc-button'} />
                     <Button id={'multiply'} label={'*'} handleClick = {this.handleOperator} className={'calc-button'}/>
                     <Button id={'subtract'} label={'-'} handleClick = {this.handleOperator} className={'calc-button'}/>
