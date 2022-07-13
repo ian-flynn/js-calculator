@@ -15,25 +15,53 @@ class Calculator extends React.Component {
             formula: '',
             display: 0,
             evaluated: false,
-            previousInput: ''
+            previousInput: '',
+            decimal: false
         }
         this.handleClick = this.handleClick.bind(this);
         this.handleOperator = this.handleOperator.bind(this);
         this.handleEqual = this.handleEqual.bind(this);
+        this.handleDecimal = this.handleDecimal.bind(this);
     }
     handleOperator(e){
         const value = e.target.value;
-        //if prevInp isnt an operand, move all numbers in display up to end of formula, plus the operand
-        if (!isOperator.test(this.state.previousInput)){
+        //if previousinput is an equal sign, set formula as prevous results plus operand, set display to operand
+        if(this.state.previousInput == '='){
+            this.setState({formula: this.state.display + value,
+                           display: value,
+                           previousInput: value});
+        }
+        //if prevInp isnt an operand, the display isnt in initial state of zero, move all numbers in display up to end of formula, plus the operand
+        else if (!isOperator.test(this.state.previousInput) && this.state.previousInput != ''){
             this.setState({formula: this.state.formula + this.state.display + value, 
                            display: value,
                            previousInput: value});
         }
-        //if previous input is an operand, then replace the end of formula with new input
+        //if previous input is an operand, then replace the end of formula with new input unless negative
         // and also replace it in the display
          else if (isOperator.test(this.state.previousInput)){
-            this.setState({formula: this.state.formula.slice(0, -1) + value, display: value})
+            //if current value is a negative sign, add the negative to the formula without removing previous input
+            if(value == '-'){
+                this.setState({formula: this.state.formula + value,
+                               display: value,
+                               previousInput: value})
+            } else {
+                this.setState({formula: this.state.formula.slice(0, -1) + value, 
+                    display: value,
+                    previousInput: value});
+            }
         }
+        //TODO: check this to make sure it's not messing up
+        this.setState({decimal: false});
+    }
+    handleDecimal(e){
+        const value = e.target.value;
+        //check if a decimal is already present in the display, if not, add
+        console.log(this.state.decimal);
+        if(this.state.decimal == false){
+            this.setState({display: this.state.display + value, previousInput: value, decimal: true})
+        }
+        console.log(this.state.decimal);
     }
     handleEqual(e){
         const value = e.target.value;
@@ -53,8 +81,10 @@ class Calculator extends React.Component {
          else {
             this.setState({display: evaluator(this.state.formula  += this.state.display), 
                 evaluated: true,
-                previousInput: value});
+                previousInput: value,
+                evaluated: true});
          }
+         this.setState({decimal: false})
             
     }
 
@@ -95,7 +125,7 @@ class Calculator extends React.Component {
                         <Button id={'two'} label={'2'} handleClick = {this.handleClick} className={'numbers calc-button'}/>
                         <Button id={'three'} label={'3'} handleClick = {this.handleClick} className={'numbers calc-button'}/>
                         <Button id={'zero'} label={'0'} handleClick = {this.handleClick} className={'numbers calc-button zero-width'}/>
-                        <Button id={'decimal'} label={'.'} handleClick = {this.handleClick} className={'numbers calc-button'}/>
+                        <Button id={'decimal'} label={'.'} handleClick = {this.handleDecimal} className={'numbers calc-button'}/>
                     </div>
                 </div>
             </div>
