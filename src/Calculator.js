@@ -24,51 +24,37 @@ class Calculator extends React.Component {
     }
     handleOperator(e){
         const value = e.target.value;
-    
         //if an equation has been evaluated, set formula as prevous results plus operator, set display to operator
         if(this.state.evaluated == true){
-            this.setState({formula: this.state.display + value,
-                           display: value,
-                           previousInput: value});
+            this.setState({formula: this.state.display + value});
         }
         //if prevInp isnt an operator, the display isnt in initial state of zero, move all numbers in display up to end of formula, plus the operator
         else if (!isOperator.test(this.state.previousInput) && this.state.previousInput != ''){
-            this.setState({formula: this.state.formula + this.state.display + value, 
-                           display: value,
-                           previousInput: value});
+            this.setState({formula: this.state.formula + this.state.display + value});
         }
         //if previous input is an operator, then replace the end of formula with new input unless negative
-        // and also replace it in the display
          else if (isOperator.test(this.state.previousInput)){
             //if current value is a negative sign, add the negative to the formula without removing previous input
             if(value == '-'){
-                this.setState({formula: this.state.formula + value,
-                               display: value,
-                               previousInput: value})
+                this.setState({formula: this.state.formula + value})
             } else if(endsOperatorThenNegative.test(this.state.formula)){
-                console.log('im in dawg');
-                this.setState({formula: this.state.formula.slice(0,-2) + value,
-                               display: value,
-                               previousInput: value});
+                this.setState({formula: this.state.formula.slice(0,-2) + value});
             } else {
-                this.setState({formula: this.state.formula.slice(0, -1) + value, 
-                    display: value,
-                    previousInput: value});
-                    console.log('you failed big time');
+                this.setState({formula: this.state.formula.slice(0, -1) + value});
             }
         }
-        //if it endswithoperatorthennegative sign is true, replace both the operator and the negative sign with the new sign
-        
-        
-        //TODO: check this to make sure it's not messing up
         this.setState({decimal: false,
-                       evaluated: false});
+                       evaluated: false,
+                       display: value,
+                       previousInput: value});
     }
     handleDecimal(e){
         const value = e.target.value;
         //check if a decimal is already present in the display, if not, add
         if(this.state.decimal == false){
-            this.setState({display: this.state.display + value, previousInput: value, decimal: true})
+            this.setState({display: this.state.display + value,
+                           previousInput: value,
+                           decimal: true})
         }
     }
     handleEqual(e){
@@ -76,7 +62,6 @@ class Calculator extends React.Component {
         function evaluator(fn) {
             return new Function('return ' + fn)();
         }
-
         //if previous input is an operator, remove it from end of formula and evaluate
         if (isOperator.test(this.state.previousInput)){
             this.setState({display: evaluator(this.state.formula.slice(0, -1)),
@@ -94,6 +79,7 @@ class Calculator extends React.Component {
          this.setState({decimal: false})
             
     }
+    
     handleClear(e){
         const value = e.target.value;
         this.setState({ formula: '',
