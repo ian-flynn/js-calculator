@@ -3,13 +3,9 @@ import CalcTitle from "./comps/CalcTitle";
 import OutputScreen from "./comps/OutputScreen";
 import Button from "./comps/Button";
 
-
 const isOperator = /[*/+-]/;
-const endsWithOperator = /[*+-/]$/;
 const endsOperatorThenNegative = /\d[*/+-]{1}-$/;
                             
-
-
 class Calculator extends React.Component {
     constructor(){
         super();
@@ -18,16 +14,13 @@ class Calculator extends React.Component {
             display: 0,
             evaluated: false,
             previousInput: '',
-            decimal: false,
-            previousOperator: '',
-            currentOperator: ''
+            decimal: false
         }
         this.handleClick = this.handleClick.bind(this);
         this.handleOperator = this.handleOperator.bind(this);
         this.handleEqual = this.handleEqual.bind(this);
         this.handleDecimal = this.handleDecimal.bind(this);
         this.handleClear = this.handleClear.bind(this);
-        this.handleNegative = this.handleNegative.bind(this);
     }
     handleOperator(e){
         const value = e.target.value;
@@ -70,13 +63,6 @@ class Calculator extends React.Component {
         //TODO: check this to make sure it's not messing up
         this.setState({decimal: false,
                        evaluated: false});
-    }
-    handleNegative(e){
-        const value = e.target.value;
-        //5*-+5 = 10
-        //5*-5 == -25
-        //make negative not an operator?
-        //only keep negative if it is the last operator in the sequence
     }
     handleDecimal(e){
         const value = e.target.value;
