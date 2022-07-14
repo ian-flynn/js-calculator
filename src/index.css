@@ -7,9 +7,10 @@
 }
 body {
     padding-top: 30px;
+    background-color: #fcd5ce;
 }
 input{
-    border: 2px solid var(--clr-secondary-dark);
+    border: 2px solid var(--clr-secondary);
 }
 
 
@@ -21,10 +22,11 @@ input{
     width: 500px;
     height: 800px;
     background: var(--clr-primary-light);
-    border: 5px s solid;
+    border: 2px solid var(--clr-secondary);
 }
 .calc-button {
-    background: var(--clr-secondary);
+    background: var(--clr-primary-light);
+    color: var(--clr-primary-dark);
     text-align: center;
     margin: auto;
     width: 100%;
@@ -35,7 +37,7 @@ input{
 /* display section */
 #screen {
     grid-area: 1 / 1 / 2 / 5;
-    border: 2px black solid;
+    border: 2px solid var(--clr-secondary);
     display: flex;
     flex-direction: column;
     padding: 10px;
@@ -48,6 +50,7 @@ input{
     width: 100%;
     font-size: large;
     background-color: transparent;
+    color: #a3a380;
     text-align: right;
     border: none;
 }
@@ -57,23 +60,9 @@ input{
 #display {
     font-size: 35px;
 }
-/* buttons */
-#clear {
-    grid-area: 2 / 1 / 3 / 3;
-    background-color: var(--clr-primary-dark);
-}
-#divide {
-    grid-area: 2 / 3 / 3 / 4;
-    background-color: var(--clr-primary);
-    text-align: center;
-}
-#multiply {
-    grid-area: 2 / 4 / 3 / 5;
-    background-color: var(--clr-primary);
-}
 .numbers-box {
     grid-area: 3 / 1 / 7 / 4;
-    background-color: black;
+    background-color: var(--clr-secondary);
     display: flex;
     flex-wrap: wrap;
     text-align: center;
@@ -85,17 +74,44 @@ input{
 .zero-width {
     width: 66.66%
 }
+/* buttons */
+#clear {
+    grid-area: 2 / 1 / 3 / 3;
+    background-color: var(--clr-primary-dark);
+    color: var(--clr-primary-light);
+
+}
+#divide {
+    grid-area: 2 / 3 / 3 / 4;
+    background-color: var(--clr-primary);
+    color: var(--clr-primary-dark);
+    font-size: 60px;
+}
+#multiply {
+    grid-area: 2 / 4 / 3 / 5;
+    background-color: var(--clr-primary);
+    color: var(--clr-primary-dark);
+    font-size: 60px;
+    padding-top: 30px;
+}
 #subtract {
     grid-area: 3 / 4 / 4 / 5;
     background-color: var(--clr-secondary);
+    color: var(--clr-primary-light);
+    font-size: 60px;
 }
 #add {
     grid-area: 4 / 4 / 5/ 5;
     background-color: var(--clr-primary-dark);
+    color: var(--clr-primary);
+    font-size: 60px;
 
 }
 #equals {
     grid-area: 5/ 4 / 7 / 5;
     background-color: var(--clr-secondary-dark);
-    color: aliceblue;
+    color: var(--clr-primary-light);
+    font-size: 60px;
 }
+
+

@@ -108,7 +108,7 @@ class Calculator extends React.Component {
                 <CalcTitle value=""/>
                 <div id="calculator-box">
                     <OutputScreen formula={this.state.formula} display={this.state.display}/>
-                    <Button id={'clear'} label={'clear'} handleClick = {this.handleClear} className={'calc-button'}/>
+                    <Button id={'clear'} label={'AC'} handleClick = {this.handleClear} className={'calc-button'}/>
                     <Button id={'divide'} label={'/'} handleClick = {this.handleOperator} className={'calc-button'} />
                     <Button id={'multiply'} label={'*'} handleClick = {this.handleOperator} className={'calc-button'}/>
                     <Button id={'subtract'} label={'-'} handleClick = {this.handleOperator} className={'calc-button'}/>
