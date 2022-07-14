@@ -16,7 +16,7 @@ class Calculator extends React.Component {
             previousInput: '',
             decimal: false
         }
-        this.handleClick = this.handleClick.bind(this);
+        this.handleNumber = this.handleNumber.bind(this);
         this.handleOperator = this.handleOperator.bind(this);
         this.handleEqual = this.handleEqual.bind(this);
         this.handleDecimal = this.handleDecimal.bind(this);
@@ -79,7 +79,7 @@ class Calculator extends React.Component {
          this.setState({decimal: false})
             
     }
-    
+
     handleClear(e){
         const value = e.target.value;
         this.setState({ formula: '',
@@ -89,7 +89,7 @@ class Calculator extends React.Component {
                         decimal: false});
     }
 
-    handleClick(e){
+    handleNumber(e){
         const value = e.target.value;
         
         if(this.state.display==0 || this.state.evaluated == true){
@@ -105,7 +105,7 @@ class Calculator extends React.Component {
         return (
             //<Button label={'Delete'} handleNumber = {this.handleNumber}/>
             <div>
-                <CalcTitle value="Ian's New Calculator"/>
+                <CalcTitle value=""/>
                 <div id="calculator-box">
                     <OutputScreen formula={this.state.formula} display={this.state.display}/>
                     <Button id={'clear'} label={'clear'} handleClick = {this.handleClear} className={'calc-button'}/>
@@ -115,16 +115,16 @@ class Calculator extends React.Component {
                     <Button id={'add'} label={'+'} handleClick = {this.handleOperator} className={'calc-button'}/>
                     <Button id={'equals'} label={'='} handleClick = {this.handleEqual} className={'calc-button'}/>
                     <div className="numbers-box">
-                        <Button id={'seven'} label={'7'} handleClick = {this.handleClick} className={'numbers calc-button'}/>
-                        <Button id={'eight'} label={'8'} handleClick = {this.handleClick} className={'numbers calc-button'}/>
-                        <Button id={'nine'} label={'9'} handleClick = {this.handleClick} className={'numbers calc-button'}/>
-                        <Button id={'four'} label={'4'} handleClick = {this.handleClick} className={'numbers calc-button'}/>
-                        <Button id={'five'} label={'5'} handleClick = {this.handleClick} className={'numbers calc-button'}/>
-                        <Button id={'six'} label={'6'} handleClick = {this.handleClick} className={'numbers calc-button'}/>
-                        <Button id={'one'} label={'1'} handleClick = {this.handleClick} className={'numbers calc-button'}/>
-                        <Button id={'two'} label={'2'} handleClick = {this.handleClick} className={'numbers calc-button'}/>
-                        <Button id={'three'} label={'3'} handleClick = {this.handleClick} className={'numbers calc-button'}/>
-                        <Button id={'zero'} label={'0'} handleClick = {this.handleClick} className={'numbers calc-button zero-width'}/>
+                        <Button id={'seven'} label={'7'} handleClick = {this.handleNumber} className={'numbers calc-button'}/>
+                        <Button id={'eight'} label={'8'} handleClick = {this.handleNumber} className={'numbers calc-button'}/>
+                        <Button id={'nine'} label={'9'} handleClick = {this.handleNumber} className={'numbers calc-button'}/>
+                        <Button id={'four'} label={'4'} handleClick = {this.handleNumber} className={'numbers calc-button'}/>
+                        <Button id={'five'} label={'5'} handleClick = {this.handleNumber} className={'numbers calc-button'}/>
+                        <Button id={'six'} label={'6'} handleClick = {this.handleNumber} className={'numbers calc-button'}/>
+                        <Button id={'one'} label={'1'} handleClick = {this.handleNumber} className={'numbers calc-button'}/>
+                        <Button id={'two'} label={'2'} handleClick = {this.handleNumber} className={'numbers calc-button'}/>
+                        <Button id={'three'} label={'3'} handleClick = {this.handleNumber} className={'numbers calc-button'}/>
+                        <Button id={'zero'} label={'0'} handleClick = {this.handleNumber} className={'numbers calc-button zero-width'}/>
                         <Button id={'decimal'} label={'.'} handleClick = {this.handleDecimal} className={'numbers calc-button'}/>
                     </div>
                 </div>
